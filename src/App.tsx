@@ -20,22 +20,24 @@ function App() {
 
   return (
     <div className="rounded">
-      <button
-        className="btn"
-        onClick={() => {
-          inspector.startCapturing();
-        }}
-      >
-        Start
-      </button>
-      <button
-        className="btn"
-        onClick={() => {
-          inspector.stopCapturing();
-        }}
-      >
-        Stop
-      </button>
+      <div className="mb-3 flex gap-3">
+        <button
+          className="btn"
+          onClick={() => {
+            inspector.startCapturing();
+          }}
+        >
+          Start
+        </button>
+        <button
+          className="btn"
+          onClick={() => {
+            inspector.stopCapturing();
+          }}
+        >
+          Stop
+        </button>
+      </div>
       <div className="grid w-[100%] grid-cols-[1fr] gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {items.map((item, index) => {
           const id = index % 2 === 0 ? index : null;
@@ -48,7 +50,7 @@ function App() {
                 </h2>
                 <p {...getId(id, 'card-p')}>If a dog chews shoes whose shoes does he choose?</p>
                 <div {...getId(id, 'card-actions')} className="card-actions justify-end">
-                  <button id={item} className="btn btn-sm btn-primary">
+                  <button id={item} className="btn btn-primary btn-sm">
                     Buy Now
                   </button>
                 </div>

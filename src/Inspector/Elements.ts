@@ -71,6 +71,7 @@ export class Elements {
   highlightElement() {
     let backgroundColor = this.highlightColor;
     if (this.targetElementData) {
+      this.targetElementData.success = true;
       try {
         const virtualElement = this.getElementDataFromSelector(this.targetElementData.selector);
         if (!virtualElement || virtualElement?.element !== this.targetElement) {
