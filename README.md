@@ -1,50 +1,75 @@
-# React + TypeScript + Vite
+# Inspector Tool Documentation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+The Inspector Tool is a web-based utility designed to identify whether elements on a webpage are uniquely identifiable. When hovering over an element, the tool checks its uniqueness and visually indicates the result with a bounding box. On clicking an element, it returns detailed data about the target element.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Hover Detection**: On hovering over an element, the tool checks if the element is uniquely identifiable.
+  - **Red Bounding Box**: Indicates the element is not uniquely identifiable.
+  - **Blue Bounding Box**: Indicates the element is uniquely identifiable.
+- **Element Data Retrieval**: On clicking an element, the tool returns an object containing detailed information about the target element.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Usage
 
-- Configure the top-level `parserOptions` property like this:
+1. **Hover Over Elements**: Move your cursor over any element on the webpage.
+   - If the element is uniquely identifiable, a blue bounding box will appear around it.
+   - If the element is not uniquely identifiable, a red bounding box will appear around it.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+2. **Click to Retrieve Data**: Click on any element to retrieve its data. The tool will return an object with the following structure:
+
+```typescript
+type ElementData = {
+  tag: string;
+  attributes: Record<string, string>;
+  selector: string | null | undefined;
+  htmlBox: DOMRect;
+  element: HTMLElement;
+  success: boolean;
+};
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### ElementData Object
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- **tag**: The tag name of the element (e.g., `div`, `span`).
+- **attributes**: A record of the element's attributes and their values.
+- **selector**: The CSS selector for the element, if available.
+- **htmlBox**: The bounding box of the element in the DOM, represented as a `DOMRect` object.
+- **element**: The actual `HTMLElement` object.
+- **success**: A boolean indicating whether the element is uniquely identifiable (`true`) or not (`false`).
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+## Example
+
+```Typescript
+// Example of using the inspector tool
+ const handleMouseClick = (e: MouseEvent, data: ElementData) => {
+    e.stopPropagation();
+    e.preventDefault();
+    console.log(data);
+  };
+  
+  const inspector = useRef(new Inspector({ onElementClick: handleMouseClick })).current;
+
+ <button
+  className="btn"
+  onClick={() => {
+    inspector.startCapturing();
+  }}
+>
+  Start
+</button>
+<button
+  className="btn"
+  onClick={() => {
+    inspector.stopCapturing();
+  }}
+>
+  Stop
+</button>
 ```
+
+
+## Conclusion
+
+The Inspector Tool is a powerful utility to quickly and easily identify unique elements on a webpage. By providing visual feedback and detailed element data, it simplifies the process of debugging and optimizing web pages.
