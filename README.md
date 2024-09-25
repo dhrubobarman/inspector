@@ -68,6 +68,11 @@ type ElementData = {
   Stop
 </button>
 ```
+![image](https://github.com/user-attachments/assets/491ae8fd-751b-4230-8614-508e603b1eb7)
+![image](https://github.com/user-attachments/assets/b230af63-65d7-4655-812b-e99950dfc243)
+![image](https://github.com/user-attachments/assets/f8efcb18-4bb4-4b95-b88b-5d8ee96400c7)
+
+
 
 
 ## Conclusion
