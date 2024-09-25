@@ -51,12 +51,12 @@ type ElementData = {
   
   const inspector = useRef(new Inspector({ onElementClick: handleMouseClick })).current;
 
- <button
+<button
   className="btn"
   onClick={() => {
     inspector.startCapturing();
   }}
->
+  >
   Start
 </button>
 <button
@@ -64,7 +64,7 @@ type ElementData = {
   onClick={() => {
     inspector.stopCapturing();
   }}
->
+  >
   Stop
 </button>
 ```
